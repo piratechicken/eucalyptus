@@ -13,6 +13,17 @@ gem 'devise'
 gem 'geocoder'
 # Pundit for auth
 gem "pundit"
+# Foundation css library and jquery
+gem 'foundation-rails'
+gem 'jquery-turbolinks'
+gem 'jquery-rails'
+# AWS
+gem 'aws-sdk', '~> 3'
+# Shrine image uploading and dependencies
+gem 'fastimage'
+gem 'image_processing'
+gem 'mini_magick'
+gem 'shrine'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'

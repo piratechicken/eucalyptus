@@ -1,3 +1,3 @@
 class Species < ApplicationRecord
-  belongs_to :growth_form
+  has_one :growth_form
 end
