@@ -42,9 +42,18 @@
   </div>
 
   <div class="field">
-    <%= form.label :image_data %>
-    <%= form.text_area :image_data, id: :profile_image_data %>
+    <%= form.label :image %><br>
+    <%= form.file_field :image %>
   </div>
+  <% if profile.image_data? %>
+    <div class="field">
+      <%= image_tag profile.image_url(:thumb) %>
+    </div>
+    <div class="field">
+      Remove attachment: <%= form.check_box :remove_image %>
+    </div>
+  <% end %>
+
 
   <div class="actions">
     <%= form.submit %>

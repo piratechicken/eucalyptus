@@ -1,4 +1,6 @@
 class Profile < ApplicationRecord
+  include ImageUploader::Attachment.new(:image)
+
   belongs_to :user
 
   validates :first_name, presence: true
@@ -6,7 +8,7 @@ class Profile < ApplicationRecord
 
   geocoded_by :full_address
   after_validation :geocode
-
+  
   def full_address
     return nil if country.nil?
     "#{suburb}, #{state}, #{country}"

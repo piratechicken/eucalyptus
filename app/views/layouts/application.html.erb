@@ -46,6 +46,11 @@
     </nav>
   <% end %>
 
+    <% if notice.present? || alert.present? %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%#= alert %></p>
+    <% end %>
+
     <%= yield %>
     <%= javascript_include_tag "application" %>
   </body>

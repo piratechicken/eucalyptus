@@ -16,7 +16,11 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/new
   def new
-    @profile = Profile.new
+    if current_user.profile.present?
+      redirect_to profiles_path, notice: 'You can only have one profile per user'     
+    else
+      @profile = Profile.new
+    end
   end
 
   # GET /profiles/1/edit
@@ -80,6 +84,6 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:first_name, :last_name, :about, :image_data, :suburb, :state, :country)
+      params.require(:profile).permit(:first_name, :last_name, :about, :suburb, :state, :country, :image, :remove_image)
     end
 end
