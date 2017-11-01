@@ -1,0 +1,14 @@
+<h1>Hello, this is an app! AMAZING!</h1>
+
+<%= link_to 'View plants for sale', profiles_path %>
+
+<% if user_signed_in? %>
+  <% if current_user.profile.present? %>
+    <%= link_to 'My profile', current_user.profile %>
+  <% else %>
+    <%= link_to 'Create profile', new_profile_path %>
+  <% end %>
+  <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to 'Log in', new_user_session_path %>
+<% end %>

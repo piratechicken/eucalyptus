@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label :name, 'Scientific name' %>
     <%= form.text_field :name, id: :species_name %>
   </div>
 
@@ -21,9 +21,9 @@
     <%= form.text_field :common_name, id: :species_common_name %>
   </div>
 
-  <div class="field">
-    <%= form.label :growth_form_id %>
-    <%= form.text_field :growth_form_id, id: :species_growth_form_id %>
+    <div class="field">
+    <%= form.label :form_id %>
+    <%= form.collection_select :form_id, GrowthForm.order(:name), :id, :name, include_blank: true %>
   </div>
 
   <div class="field">
@@ -32,9 +32,18 @@
   </div>
 
   <div class="field">
-    <%= form.label :image_data %>
-    <%= form.text_area :image_data, id: :species_image_data %>
+    <%= form.label :image %><br>
+    <%= form.file_field :image %>
   </div>
+
+  <% if @species.image_data? %>
+    <div class="field">
+      <%= image_tag @species.image_url(:thumb) %>
+    </div>
+    <div class="field">
+      Remove attachment: <%= f.check_box :remove_image %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

@@ -1,8 +1,11 @@
 class Profile < ApplicationRecord
   belongs_to :user
 
-  geocoded_by :full_address   # can also be an IP address
-  after_validation :geocode          # auto-fetch coordinates
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
+  geocoded_by :full_address
+  after_validation :geocode
 
   def full_address
     return nil if country.nil?
