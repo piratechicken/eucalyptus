@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Growth Forms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Image data</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @growth_forms.each do |growth_form| %>
+      <tr>
+        <td><%= growth_form.name %></td>
+        <td><%= growth_form.description %></td>
+        <td><%= growth_form.image_data %></td>
+        <td><%= link_to 'Show', growth_form %></td>
+        <td><%= link_to 'Edit', edit_growth_form_path(growth_form) %></td>
+        <td><%= link_to 'Destroy', growth_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Growth Form', new_growth_form_path %>

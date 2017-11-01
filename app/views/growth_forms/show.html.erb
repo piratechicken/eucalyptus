@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @growth_form.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @growth_form.description %>
+</p>
+
+<p>
+  <strong>Image data:</strong>
+  <%= @growth_form.image_data %>
+</p>
+
+<%= link_to 'Edit', edit_growth_form_path(@growth_form) %> |
+<%= link_to 'Back', growth_forms_path %>

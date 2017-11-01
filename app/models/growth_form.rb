@@ -1,0 +1,2 @@
+class GrowthForm < ApplicationRecord
+end

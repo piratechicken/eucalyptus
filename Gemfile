@@ -7,13 +7,12 @@ end
 
 # Dotenv for env variables - keep at top of gemfile
 gem 'dotenv-rails', groups: [:development, :test]
-
 # Devise for logins
 gem 'devise'
-
 # Geocoding
 gem 'geocoder'
-
+# Pundit for auth
+gem "pundit"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'

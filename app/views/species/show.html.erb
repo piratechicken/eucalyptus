@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @species.name %>
+</p>
+
+<p>
+  <strong>Common name:</strong>
+  <%= @species.common_name %>
+</p>
+
+<p>
+  <strong>Growth form:</strong>
+  <%= @species.growth_form %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @species.description %>
+</p>
+
+<p>
+  <strong>Image data:</strong>
+  <%= @species.image_data %>
+</p>
+
+<%= link_to 'Edit', edit_species_path(@species) %> |
+<%= link_to 'Back', species_index_path %>

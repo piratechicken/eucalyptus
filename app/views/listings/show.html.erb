@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @listing.title %>
+</p>
+
+<p>
+  <strong>Species:</strong>
+  <%= @listing.species %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @listing.user %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @listing.description %>
+</p>
+
+<p>
+  <strong>Price cents:</strong>
+  <%= @listing.price_cents %>
+</p>
+
+<p>
+  <strong>Image data:</strong>
+  <%= @listing.image_data %>
+</p>
+
+<%= link_to 'Edit', edit_listing_path(@listing) %> |
+<%= link_to 'Back', listings_path %>
