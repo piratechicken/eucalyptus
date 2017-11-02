@@ -2,17 +2,17 @@
 
 <p>
   <strong>Seller:</strong>
-  <%= @conversation.seller_id %>
+  <%= @conversation.listing.user.email %>
 </p>
 
 <p>
   <strong>Buyer:</strong>
-  <%= @conversation.buyer_id %>
+  <%= "#{@conversation.buyer.profile.first_name} #{@conversation.buyer.profile.first_name}" %>
 </p>
 
 <p>
   <strong>Listing:</strong>
-  <%= @conversation.listing %>
+  <%= @conversation.listing.title %>
 </p>
 
 <%= link_to 'Edit', edit_conversation_path(@conversation) %> |
