@@ -1,6 +1,7 @@
-<h1>Hello, this is an app! AMAZING!</h1>
+<h1>Eucalyptus</h1>
+<h2>Indigenous plant marketplace</h2>
 
-<p><%= link_to 'View plants for sale', profiles_path %></p>
+<p><%= link_to 'View plants for sale', listings_path %></p>
 
 <% if user_signed_in? %>
   <% if current_user.profile.present? %>

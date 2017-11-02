@@ -9,7 +9,7 @@
 
 <p>
   <strong>Image data:</strong>
-  <%= image_tag @profile.image_url(:large) %>
+  <%= image_tag @profile.image_url(:large) if @profile.image_data.present? %>
 </p>
 
 <p>

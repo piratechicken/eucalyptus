@@ -14,7 +14,7 @@
     <% @profiles.each do |profile| %>
       <tr>
         <td><%= link_to "#{profile.first_name} #{profile.last_name}", profile %></td>
-        <td><%= profile.image_data %></td>
+        <td><%= image_tag profile.image_url(:large) if profile.image_data.present? %></td>
         <td><%= "#{profile.suburb}, #{profile.state}" %></td>
       </tr>
     <% end %>
@@ -23,4 +23,7 @@
 
 <br>
 
-<%= link_to 'Create my profile', new_profile_path if current_user.profile.nil? %>
+<% if signed_in? %>
+  <%= link_to 'Create my profile', 
+  new_profile_path if current_user.profile.nil? %>
+<% end %>

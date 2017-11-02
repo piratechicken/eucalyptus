@@ -1,0 +1,39 @@
+   <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <h1><%= link_to 'Eucalyptus', root_path %></h1>
+        </li>
+        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+        <% if user_signed_in? %>
+          <% if current_user.profile.present? %>
+            <li><%= link_to 'My profile', current_user.profile, class: 'btn btn-secondary' %></li>
+          <% else %>
+            <li><%= link_to 'Create profile', new_profile_path, class: 'btn btn-secondary'  %></li>
+          <% end %>
+          <li><%= link_to 'Sign out', destroy_user_session_path, class: "button", method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'Log in', new_user_session_path, class: "button" %></li>
+        <% end %>
+          <li class="has-dropdown">
+            <a href="#">Right Button Dropdown</a>
+            <ul class="dropdown">
+              <li><a href="#">First link in dropdown</a></li>
+              <li class="active"><a href="#">Active link in dropdown</a></li>
+            </ul>
+          </li>
+        </ul>
+
+
+        <!-- Left Nav Section -->
+        <ul class="left">
+          <li><%= link_to 'View listings', listings_path %></li>
+          <li><a href="#">Left Nav Button2</a></li>
+        </ul>
+      </section>
+    </nav>

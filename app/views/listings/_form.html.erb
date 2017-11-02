@@ -18,12 +18,8 @@
 
   <div class="field">
     <%= form.label :species_id %>
-    <%= form.text_field :species_id, id: :listing_species_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :listing_user_id %>
+    <%= form.collection_select :species_id, Species.order(:name), :id, :name, include_blank: true %>
+    <%= link_to 'Add new species', new_species_path, target: :_blank  %>
   </div>
 
   <div class="field">
@@ -37,9 +33,17 @@
   </div>
 
   <div class="field">
-    <%= form.label :image_data %>
-    <%= form.text_area :image_data, id: :listing_image_data %>
+    <%= form.label :image %><br>
+    <%= form.file_field :image %>
   </div>
+  <% if listing.image_data? %>
+    <div class="field">
+      <%= image_tag listing.image_url(:thumb) %>
+    </div>
+    <div class="field">
+      Remove attachment: <%= form.check_box :remove_image %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

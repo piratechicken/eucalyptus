@@ -1,10 +1,10 @@
 class SpeciesController < ApplicationController
-  before_action :set_species, only: [:show, :edit, :update, :destroy]
+  before_action :set_specie, only: [:show, :edit, :update, :destroy]
 
   # GET /species
   # GET /species.json
   def index
-    @species = Species.all
+    @species = Specie.all
   end
 
   # GET /species/1
@@ -14,7 +14,7 @@ class SpeciesController < ApplicationController
 
   # GET /species/new
   def new
-    @species = Species.new
+    @specie = Specie.new
   end
 
   # GET /species/1/edit
@@ -24,15 +24,15 @@ class SpeciesController < ApplicationController
   # POST /species
   # POST /species.json
   def create
-    @species = Species.new(species_params)
+    @specie = Specie.new(specie_params)
 
     respond_to do |format|
-      if @species.save
-        format.html { redirect_to @species, notice: 'Species was successfully created.' }
-        format.json { render :show, status: :created, location: @species }
+      if @specie.save
+        format.html { redirect_to @specie, notice: 'Species was successfully created.' }
+        format.json { render :show, status: :created, location: @specie }
       else
         format.html { render :new }
-        format.json { render json: @species.errors, status: :unprocessable_entity }
+        format.json { render json: @specie.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,12 +41,12 @@ class SpeciesController < ApplicationController
   # PATCH/PUT /species/1.json
   def update
     respond_to do |format|
-      if @species.update(species_params)
-        format.html { redirect_to @species, notice: 'Species was successfully updated.' }
-        format.json { render :show, status: :ok, location: @species }
+      if @specie.update(specie_params)
+        format.html { redirect_to @specie, notice: 'Species was successfully updated.' }
+        format.json { render :show, status: :ok, location: @specie }
       else
         format.html { render :edit }
-        format.json { render json: @species.errors, status: :unprocessable_entity }
+        format.json { render json: @specie.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,21 +54,21 @@ class SpeciesController < ApplicationController
   # DELETE /species/1
   # DELETE /species/1.json
   def destroy
-    @species.destroy
+    @specie.destroy
     respond_to do |format|
-      format.html { redirect_to species_index_url, notice: 'Species was successfully destroyed.' }
+      format.html { redirect_to specie_url, notice: 'Specie was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_species
-      @species = Species.find(params[:id])
+    def set_specie
+      @specie = Specie.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def species_params
-      params.require(:species).permit(:name, :common_name, :growth_form_id, :description, :image_data)
+    def specie_params
+      params.require(:specie).permit(:name, :common_name, :growth_form_id, :description, :image)
     end
 end

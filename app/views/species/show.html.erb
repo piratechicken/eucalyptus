@@ -1,27 +1,29 @@
+<p id="notice"><%= notice %></p>
+
 <p>
   <strong>Name:</strong>
-  <%= @species.name %>
+  <%= @specie.name %>
 </p>
 
 <p>
   <strong>Common name:</strong>
-  <%= @species.common_name %>
+  <%= @specie.common_name %>
 </p>
 
 <p>
   <strong>Growth form:</strong>
-  <%= @species.growth_form %>
+  <%= @specie.growth_form.name %>
 </p>
 
 <p>
   <strong>Description:</strong>
-  <%= @species.description %>
+  <%= @specie.description %>
 </p>
 
 <p>
   <strong>Image data:</strong>
-  <%= @species.image_data %>
+  <%= image_tag @specie.image_url(:large) if @specie.image_data.present? %>
 </p>
 
-<%= link_to 'Edit', edit_species_path(@species) %> |
-<%= link_to 'Back', species_index_path %>
+<%= link_to 'Edit', edit_specie_path(@specie) %> |
+<%= link_to 'Back', species_path %>

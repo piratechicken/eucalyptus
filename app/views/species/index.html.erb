@@ -1,3 +1,5 @@
+<p id="notice"><%= notice %></p>
+
 <h1>Species</h1>
 
 <table>
@@ -13,16 +15,16 @@
   </thead>
 
   <tbody>
-    <% @species.each do |species| %>
+    <% @species.each do |specie| %>
       <tr>
-        <td><%= species.name %></td>
-        <td><%= species.common_name %></td>
-        <td><%= species.growth_form %></td>
-        <td><%= species.description %></td>
-        <td><%= species.image_data %></td>
-        <td><%= link_to 'Show', species %></td>
-        <td><%= link_to 'Edit', edit_species_path(species) %></td>
-        <td><%= link_to 'Destroy', species, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= specie.name %></td>
+        <td><%= specie.common_name %></td>
+        <td><%= specie.growth_form.name %></td>
+        <td><%= specie.description %></td>
+        <td><%= image_tag specie.image_url(:thumb) if specie.image_data.present? %></td>
+        <td><%= link_to 'Show', specie %></td>
+        <td><%= link_to 'Edit', edit_specie_path(specie) %></td>
+        <td><%= link_to 'Destroy', specie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Species', new_species_path %>
+<%= link_to 'New Species', new_specie_path %>

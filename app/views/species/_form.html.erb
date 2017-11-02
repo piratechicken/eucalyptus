@@ -1,10 +1,10 @@
-<%= form_with(model: species, local: true) do |form| %>
-  <% if species.errors.any? %>
+<%= form_with(model: specie, local: true) do |form| %>
+  <% if specie.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(species.errors.count, "error") %> prohibited this species from being saved:</h2>
+      <h2><%= pluralize(specie.errors.count, "error") %> prohibited this specie from being saved:</h2>
 
       <ul>
-      <% species.errors.full_messages.each do |message| %>
+      <% specie.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,36 +12,35 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name, 'Scientific name' %>
-    <%= form.text_field :name, id: :species_name %>
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :specie_name %>
   </div>
 
   <div class="field">
     <%= form.label :common_name %>
-    <%= form.text_field :common_name, id: :species_common_name %>
+    <%= form.text_field :common_name, id: :specie_common_name %>
   </div>
 
-    <div class="field">
-    <%= form.label :form_id %>
-    <%= form.collection_select :form_id, GrowthForm.order(:name), :id, :name, include_blank: true %>
+  <div class="field">
+    <%= form.label :growth_form_id %>
+    <%= form.collection_select :growth_form_id, GrowthForm.order(:name), :id, :name, include_blank: true %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description, id: :species_description %>
+    <%= form.text_area :description, id: :specie_description %>
   </div>
 
-  <div class="field">
+   <div class="field">
     <%= form.label :image %><br>
     <%= form.file_field :image %>
   </div>
-
-  <% if @species.image_data? %>
+  <% if specie.image_data? %>
     <div class="field">
-      <%= image_tag @species.image_url(:thumb) %>
+      <%= image_tag specie.image_url(:thumb) %>
     </div>
     <div class="field">
-      Remove attachment: <%= f.check_box :remove_image %>
+      Remove attachment: <%= form.check_box :remove_image %>
     </div>
   <% end %>
 

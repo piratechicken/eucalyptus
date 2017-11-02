@@ -19,11 +19,11 @@
     <% @listings.each do |listing| %>
       <tr>
         <td><%= listing.title %></td>
-        <td><%= listing.species %></td>
+        <td><%= listing.specie.name %></td>
         <td><%= listing.user %></td>
         <td><%= listing.description %></td>
         <td><%= listing.price_cents %></td>
-        <td><%= listing.image_data %></td>
+        <td><%= image_tag listing.image_url(:thumb) if listing.image_data.present? %></td>
         <td><%= link_to 'Show', listing %></td>
         <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
         <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
