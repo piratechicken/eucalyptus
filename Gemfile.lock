@@ -563,6 +563,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_layout (1.0.41)
     railties (5.1.4)
       actionpack (= 5.1.4)
       activesupport (= 5.1.4)
@@ -645,6 +646,7 @@ DEPENDENCIES
   puma (~> 3.7)
   pundit
   rails (~> 5.1.4)
+  rails_layout
   sass-rails (~> 5.0)
   shrine
   spring

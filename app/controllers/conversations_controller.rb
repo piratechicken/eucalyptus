@@ -24,17 +24,27 @@ class ConversationsController < ApplicationController
   # POST /conversations
   # POST /conversations.json
   def create
-    @conversation = Conversation.new(conversation_params)
+    listing = Listing.find_by_id(params[:listing_id])
+    seller = listing.user
 
-    respond_to do |format|
-      if @conversation.save
-        format.html { redirect_to @conversation, notice: 'Conversation was successfully created.' }
-        format.json { render :show, status: :created, location: @conversation }
+    if params[:buyer_id]!=seller.id # Sender and Receiver should not be the same
+      
+      if Conversation.between(params[:buyer_id],params[:listing_id]).present? # between scope in model
+        @conversation = Conversation.between(params[:buyer_id], params[:listing_id]).first
       else
-        format.html { render :new }
-        format.json { render json: @conversation.errors, status: :unprocessable_entity }
+        @conversation = Conversation.create!(conversation_params)
       end
+
+      redirect_to conversation_messages_path(@conversation)
+
+    else
+      respond_to do |format|
+        format.html { redirect_to listing_path(@listing), notice: 'You cannot send a message to yourself.' }
+        format.json { head :no_content }
+      end
+
     end
+
   end
 
   # PATCH/PUT /conversations/1

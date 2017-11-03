@@ -15,10 +15,10 @@
   <tbody>
     <% @conversations.each do |conversation| %>
       <tr>
-        <td><%= conversation.seller_id %></td>
-        <td><%= conversation.buyer_id %></td>
-        <td><%= conversation.listing %></td>
-        <td><%= link_to 'Show', conversation %></td>
+        <td><%= conversation.listing.user.email %></td>
+        <td><%= conversation.buyer.email %></td>
+        <td><%= conversation.listing.title %></td>
+        <td><%= link_to 'Show', conversation_messages_path(conversation) %></td>
         <td><%= link_to 'Edit', edit_conversation_path(conversation) %></td>
         <td><%= link_to 'Destroy', conversation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -27,5 +27,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Conversation', new_conversation_path %>

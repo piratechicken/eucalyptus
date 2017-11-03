@@ -2,30 +2,24 @@
 
 <h1>Messages</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Body</th>
-      <th>Read</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
     <% @messages.each do |message| %>
-      <tr>
-        <td><%= message.user %></td>
-        <td><%= message.body %></td>
-        <td><%= message.read %></td>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if message.user == current_user %>
+        <div class="my-message">
+      <% else %>
+       <div class="message">
+      <% end %>
+        <div class = "sender"><%= message.user.profile.first_name %> at <%= message.created_at %>:</div>
+        <p><%= message.body %><p>
+      </div>
     <% end %>
-  </tbody>
-</table>
 
 <br>
 
-<%= link_to 'New Message', new_message_path %>
+<%= form_with(model: [@conversation, @message], local: true, html: {class: "ui reply form"}) do |f| %>
+  <div class="field">
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+  <div>
+    <%= f.submit "Add Reply", class: "success button" %>
+  </div>
+<% end %>
