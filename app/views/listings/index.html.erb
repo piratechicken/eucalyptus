@@ -4,6 +4,8 @@
 
 <%= form_with url: listings_path, local: true, method: :get do |form| %>
     <%= form.select :radius_search, [5, 10, 20, 40], include_blank: 'All locations' %>
+    <%= form.collection_select :species_search, Specie.order(:name), :id, :name, include_blank: 'All species' %>
+    <%= form.collection_select :growth_form_search, GrowthForm.order(:name), :id, :name, include_blank: 'All growth forms' %>
     <%= form.submit 'Search' %>
 <% end %>
 

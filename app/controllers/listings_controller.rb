@@ -1,26 +1,44 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
-  # GET /listings
-  # GET /listings.json
   def index
+
+    # If loacation radius param passed from form select, get lisitings within radius
     if params[:radius_search].present?
       lat = current_user.profile.latitude
       long = current_user.profile.longitude
       range = params[:radius_search]
-      @profiles = Profile.near([lat, long], range, :units => :km)
+      profiles = Profile.near([lat, long], range, :units => :km)
       # OK, well, it works...
-      @listings = []
-      @profiles.each do |profile|
+      radius_listings = []
+      profiles.each do |profile|
         if profile.user.listings.length > 0
           profile.user.listings.each do |listing|
-            @listings << listing
+            radius_listings << listing
           end
         end
       end
+    # Or else return all listings
     else 
-      @listings = Listing.all
+      radius_listings = Listing.all
     end
+
+    if params[:species_search].present?
+      species_listings = Listing.where(specie: params[:species_search])
+    else
+      species_listings = Listing.all      
+    end
+    
+    if params[:growth_form_search].present?
+      species = Specie.where(growth_form: params[:growth_form_search])
+      growth_form_listings = Listing.where(specie: species)      
+    else
+      growth_form_listings = Listing.all      
+    end
+
+    # Listings to show is the intersection of all searches
+    @listings = radius_listings & species_listings & growth_form_listings
+
   end
 
   def show
