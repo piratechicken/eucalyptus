@@ -1,26 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<h4>Messages with <%= link_to other_user(@conversation).full_name, other_user(@conversation) %> about the listing "<%= link_to @conversation.listing.title, @conversation.listing %>"</h4>
-
 <div class = "messages">
+
+<h4>Messages with <%= link_to other_user(@conversation).full_name, other_user(@conversation) %> about the listing "<%= link_to @conversation.listing.title, @conversation.listing %>"</h4>
 
   <% @messages.each do |message| %>
     <% if message.user == current_user %>
       <div class="my-message">
       <div class = "sender"><%= message.user.profile.first_name %> <%= format_time(message.created_at) %>:</div>
-      <p><%= message.body %></p>
+      <p><%= simple_format message.body %></p>
       </div>
     <% else %>
-      <div class="message">
-      <div class = "sender"><%= message.user.profile.first_name %> <%= format_time(message.created_at) %>:</div>
-      <p>
-        <%= message.body %>      </p>
-        <% if other_user(@conversation).image_data.present? %>
-          <%= image_tag other_user(@conversation).image_url(:thumb) %>
-        <% else %>
-          <%= image_tag 'avatar-thumb.png' %>
-        <% end %>
-
+      <div class="message-box">
+        <div class = 'profile-img'>
+          <% if other_user(@conversation).image_data.present? %>
+            <%= image_tag other_user(@conversation).image_url(:thumb) %>
+          <% else %>
+            <%= image_tag 'avatar-thumb.png' %>
+          <% end %>
+        </div>
+        <div class="message">
+          <div class = "sender"><%= message.user.profile.first_name %> <%= format_time(message.created_at) %>:</div>
+          <p><%= simple_format message.body %></p>
+      </div>
     </div>
     <% end %>
   <% end %>

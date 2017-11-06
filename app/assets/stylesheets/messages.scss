@@ -2,6 +2,37 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.messages {
+  max-width: 900px;
+  margin: auto;
+
+  textarea {
+    margin: 5px auto;
+    padding: 2px;
+    border-radius: 5px;
+  }
+
+  button, .button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+
+  .message-box {
+    display: flex;
+    max-width: 500px;
+
+    .profile-img {
+      align-self: flex-end;
+      width: 50px;
+      height: 50px;
+      border: black 1px solid;
+      border-radius: 50%;
+      text-align: center;
+      overflow: hidden;
+    }
+  }
+}
 
 .my-message, .message {
   border: solid 1px black;
@@ -20,27 +51,12 @@
  }
  .my-message {
   background: #e0f3e3;
-}
- .message {
-  background: #eaf3f7;
   margin-left: auto; 
   margin-right:0;
 }
-
-.messages {
-  img {
-    border-radius: 50%;
-  }
-
-  textarea {
-    margin: 5px auto;
-    padding: 2px;
-    border-radius: 5px;
-  }
-
-  button, .button {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-  }
+ .message {
+  flex: 1;
+  align-self: flex-start;
+  background: #eaf3f7;
 }
+
