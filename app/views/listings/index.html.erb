@@ -2,6 +2,11 @@
 
 <h1>Listings</h1>
 
+<%= form_with url: listings_path, local: true, method: :get do |form| %>
+    <%= form.select :radius_search, [5, 10, 20, 40], include_blank: 'All locations' %>
+    <%= form.submit 'Search' %>
+<% end %>
+
 <table>
   <thead>
     <tr>
