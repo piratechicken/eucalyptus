@@ -6,9 +6,12 @@
 
   <% @messages.each do |message| %>
     <% if message.user == current_user %>
-      <div class="my-message">
-      <div class = "sender"><%= message.user.profile.first_name %> <%= format_time(message.created_at) %>:</div>
-      <p><%= simple_format message.body %></p>
+      <div class="message-box-me">
+        <div class = 'profile-img'></div>
+        <div class="my-message">
+          <div class = "sender"><%= message.user.profile.first_name %> <%= format_time(message.created_at) %>:</div>
+          <p><%= simple_format message.body %></p>
+        </div>
       </div>
     <% else %>
       <div class="message-box">
@@ -27,14 +30,16 @@
     <% end %>
   <% end %>
 
-  <div class="my-message">
-    <%= form_with(model: [@conversation, @message], local: true, html: {class: "ui reply form"}) do |f| %>
-      <div class="field">
-        <%= f.text_area :body, class: "form-control" %>
-      </div>
-      <div>
-        <%= f.submit "Add Reply", class: "success button" %>
-      </div>
-    <% end %>
+  <div class = "message-box-me">
+    <div class="my-message">
+      <%= form_with(model: [@conversation, @message], local: true, html: {class: "ui reply form"}) do |f| %>
+        <div class="field">
+          <%= f.text_area :body, class: "form-control" %>
+        </div>
+        <div>
+          <%= f.submit "Add Reply", class: "success button" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
