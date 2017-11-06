@@ -1,28 +1,14 @@
 class ConversationsController < ApplicationController
+  before_action :authenticate_user!  
   before_action :set_conversation, only: [:show, :edit, :update, :destroy]
 
-  # GET /conversations
-  # GET /conversations.json
   def index
-    @conversations = Conversation.all
+    @conversations = Conversation.user_conversations(current_user)
   end
 
-  # GET /conversations/1
-  # GET /conversations/1.json
   def show
   end
 
-  # # GET /conversations/new
-  # def new
-  #   @conversation = Conversation.new
-  # end
-
-  # # GET /conversations/1/edit
-  # def edit
-  # end
-
-  # POST /conversations
-  # POST /conversations.json
   def create
     listing = Listing.find_by_id(params[:listing_id])
     seller = listing.user

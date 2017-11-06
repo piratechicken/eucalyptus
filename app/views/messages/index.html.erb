@@ -1,25 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Messages</h1>
+<h4>Messages with <%= link_to other_user(@conversation).full_name, other_user(@conversation) %> about the listing "<%= link_to @conversation.listing.title, @conversation.listing %>"</h4>
 
-    <% @messages.each do |message| %>
-      <% if message.user == current_user %>
-        <div class="my-message">
-      <% else %>
-       <div class="message">
-      <% end %>
-        <div class = "sender"><%= message.user.profile.first_name %> at <%= message.created_at %>:</div>
-        <p><%= message.body %><p>
+<div class = "messages">
+
+  <% @messages.each do |message| %>
+    <% if message.user == current_user %>
+      <div class="my-message">
+      <div class = "sender"><%= message.user.profile.first_name %> <%= format_time(message.created_at) %>:</div>
+      <p><%= message.body %></p>
+      </div>
+    <% else %>
+      <div class="message">
+      <div class = "sender"><%= message.user.profile.first_name %> <%= format_time(message.created_at) %>:</div>
+      <p>
+        <%= message.body %>      </p>
+        <% if other_user(@conversation).image_data.present? %>
+          <%= image_tag other_user(@conversation).image_url(:thumb) %>
+        <% else %>
+          <%= image_tag 'avatar-thumb.png' %>
+        <% end %>
+
+    </div>
+    <% end %>
+  <% end %>
+
+  <div class="my-message">
+    <%= form_with(model: [@conversation, @message], local: true, html: {class: "ui reply form"}) do |f| %>
+      <div class="field">
+        <%= f.text_area :body, class: "form-control" %>
+      </div>
+      <div>
+        <%= f.submit "Add Reply", class: "success button" %>
       </div>
     <% end %>
-
-<br>
-
-<%= form_with(model: [@conversation, @message], local: true, html: {class: "ui reply form"}) do |f| %>
-  <div class="field">
-    <%= f.text_area :body, class: "form-control" %>
   </div>
-  <div>
-    <%= f.submit "Add Reply", class: "success button" %>
-  </div>
-<% end %>
+</div>
