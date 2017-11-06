@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-  resources :messages
-  resources :conversations
   root 'landing#index' 
   devise_for :users
   
   resources :species
+  resources :growth_forms
   resources :profiles
   resources :listings
-  resources :growth_forms
-
+  
+  resources :conversations do
+    resources :messages
+  end
+  
 end

@@ -1,31 +1,40 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Messages</h1>
+<div class = "messages">
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Body</th>
-      <th>Read</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<h4>Messages with <%= link_to other_user(@conversation).full_name, other_user(@conversation) %> about the listing "<%= link_to @conversation.listing.title, @conversation.listing %>"</h4>
 
-  <tbody>
-    <% @messages.each do |message| %>
-      <tr>
-        <td><%= message.user %></td>
-        <td><%= message.body %></td>
-        <td><%= message.read %></td>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+  <% @messages.each do |message| %>
+    <% if message.user == current_user %>
+      <div class="my-message">
+      <div class = "sender"><%= message.user.profile.first_name %> <%= format_time(message.created_at) %>:</div>
+      <p><%= simple_format message.body %></p>
+      </div>
+    <% else %>
+      <div class="message-box">
+        <div class = 'profile-img'>
+          <% if other_user(@conversation).image_data.present? %>
+            <%= image_tag other_user(@conversation).image_url(:thumb) %>
+          <% else %>
+            <%= image_tag 'avatar-thumb.png' %>
+          <% end %>
+        </div>
+        <div class="message">
+          <div class = "sender"><%= message.user.profile.first_name %> <%= format_time(message.created_at) %>:</div>
+          <p><%= simple_format message.body %></p>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
 
-<br>
-
-<%= link_to 'New Message', new_message_path %>
+  <div class="my-message">
+    <%= form_with(model: [@conversation, @message], local: true, html: {class: "ui reply form"}) do |f| %>
+      <div class="field">
+        <%= f.text_area :body, class: "form-control" %>
+      </div>
+      <div>
+        <%= f.submit "Add Reply", class: "success button" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,40 +1,36 @@
 class ConversationsController < ApplicationController
+  before_action :authenticate_user!  
   before_action :set_conversation, only: [:show, :edit, :update, :destroy]
 
-  # GET /conversations
-  # GET /conversations.json
   def index
-    @conversations = Conversation.all
+    @conversations = Conversation.user_conversations(current_user)
   end
 
-  # GET /conversations/1
-  # GET /conversations/1.json
   def show
   end
 
-  # GET /conversations/new
-  def new
-    @conversation = Conversation.new
-  end
-
-  # GET /conversations/1/edit
-  def edit
-  end
-
-  # POST /conversations
-  # POST /conversations.json
   def create
-    @conversation = Conversation.new(conversation_params)
+    listing = Listing.find_by_id(params[:listing_id])
+    seller = listing.user
 
-    respond_to do |format|
-      if @conversation.save
-        format.html { redirect_to @conversation, notice: 'Conversation was successfully created.' }
-        format.json { render :show, status: :created, location: @conversation }
+    if params[:buyer_id]!=seller.id # Sender and Receiver should not be the same
+      
+      if Conversation.between(params[:buyer_id],params[:listing_id]).present? # between scope in model
+        @conversation = Conversation.between(params[:buyer_id], params[:listing_id]).first
       else
-        format.html { render :new }
-        format.json { render json: @conversation.errors, status: :unprocessable_entity }
+        @conversation = Conversation.create!(conversation_params)
       end
+
+      redirect_to conversation_messages_path(@conversation)
+
+    else
+      respond_to do |format|
+        format.html { redirect_to listing_path(@listing), notice: 'You cannot send a message to yourself.' }
+        format.json { head :no_content }
+      end
+
     end
+
   end
 
   # PATCH/PUT /conversations/1
@@ -69,6 +65,6 @@ class ConversationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def conversation_params
-      params.require(:conversation).permit(:seller_id, :buyer_id, :listing_id)
+      params.permit(:buyer_id, :listing_id)
     end
 end

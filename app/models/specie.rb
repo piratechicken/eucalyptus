@@ -3,4 +3,5 @@ class Specie < ApplicationRecord
 
   belongs_to :growth_form
   has_many :listings
+  
 end

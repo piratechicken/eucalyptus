@@ -20,7 +20,7 @@
       <tr>
         <td><%= listing.title %></td>
         <td><%= listing.specie.name %></td>
-        <td><%= listing.user %></td>
+        <td><%= "#{listing.user.profile.first_name} #{listing.user.profile.last_name}" %></td>
         <td><%= listing.description %></td>
         <td><%= listing.price_cents %></td>
         <td><%= image_tag listing.image_url(:thumb) if listing.image_data.present? %></td>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Listing', new_listing_path %>
+<%= link_to 'New Listing', new_listing_path if signed_in? %>
