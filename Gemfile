@@ -24,6 +24,9 @@ gem 'fastimage'
 gem 'image_processing'
 gem 'mini_magick'
 gem 'shrine'
+# Money to format... well, money.
+gem 'money-rails', '~>1'
+gem 'money'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'

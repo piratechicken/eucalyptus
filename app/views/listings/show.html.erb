@@ -7,7 +7,7 @@
 
 <p>
   <strong>Species:</strong>
-  <%= @listing.specie.name %>
+  <%= link_to @listing.specie.name, @listing.specie %>
 </p>
 
 <p>
@@ -21,8 +21,8 @@
 </p>
 
 <p>
-  <strong>Price cents:</strong>
-  <%= @listing.price_cents %>
+  <strong>Price:</strong>
+  <%= format_money @listing.price_cents %>
 </p>
 
 <p>
@@ -32,7 +32,7 @@
 
 <p>
   <strong>Last updated</strong>
-  <%= @listing.updated_at %>
+  <%= format_time @listing.updated_at %>
 </p>
 
 <% if (signed_in? && @listing.user != current_user) %>
