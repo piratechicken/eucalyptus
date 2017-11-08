@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   # GET /profiles
   # GET /profiles.json
@@ -17,7 +17,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/new
   def new
     if current_user.profile.present?
-      redirect_to profiles_path, notice: 'You can only have one profile per user'     
+      redirect_to current_user.profile, notice: 'You can only have one profile per user'     
     else
       @profile = Profile.new
     end
@@ -31,6 +31,10 @@ class ProfilesController < ApplicationController
   # POST /profiles
   # POST /profiles.json
   def create
+    if current_user.profile.present?
+      redirect_to current_user.profile, notice: 'You can only have one profile per user'     
+    end
+    
     @profile = Profile.new(profile_params)
     @profile.user = current_user
 

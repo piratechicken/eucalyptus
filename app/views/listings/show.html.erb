@@ -1,44 +1,56 @@
-<p id="notice"><%= notice %></p>
+<div class = "container">
+  <div class = "listing-details">
+      <% if @listing.image_data.present? %>
+        <%= image_tag @listing.image_url(:large) %>
+      <% elsif @listing.specie.growth_form.name == ('small tree' || 'medium tree' || 'large tree') %>
+        <%= image_tag 'tree-500.png' %>
+      <% elsif @listing.specie.growth_form.name == 'fern' %>
+        <%= image_tag 'fern-500.png' %>
+      <% elsif @listing.specie.growth_form.name == 'shrub' %>
+        <%= image_tag 'bush-500.png' %>
+      <% elsif @listing.specie.growth_form.name == 'grass' %>
+        <%= image_tag 'grass-500.png' %>
+      <% else %>
+        <%= image_tag 'leaf-500.png' %>
+      <% end %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @listing.title %>
-</p>
+    <h3>
+      <%= @listing.title %>
+    </h3>
 
-<p>
-  <strong>Species:</strong>
-  <%= link_to @listing.specie.name, @listing.specie %>
-</p>
+    <p>
+      <i><%= link_to @listing.specie.name, @listing.specie %></i> (<%= @listing.specie.common_name %>)
+    </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @listing.user.profile.full_name %>
-</p>
+    <p>
+      <%= format_money @listing.price_cents %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @listing.description %>
-</p>
+    <p>
+      <%= @listing.description %>
+    </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= format_money @listing.price_cents %>
-</p>
 
-<p>
-  <strong>Image data:</strong>
-  <%= image_tag @listing.image_url(:large) if @listing.image_data.present? %>
-</p>
+    <p>
+      <strong>Seller:</strong>
+      <%= link_to @listing.user.profile.full_name, @listing.user.profile %><br>
+      <strong>Location:</strong>
+      <%= "#{@listing.user.profile.suburb}, #{@listing.user.profile.state}" %><br>
+      <i>Last updated <%= format_time @listing.updated_at %></i>
+    </p>
 
-<p>
-  <strong>Last updated</strong>
-  <%= format_time @listing.updated_at %>
-</p>
 
-<% if (signed_in? && @listing.user != current_user) %>
-  <%= link_to("Message #{@listing.user.profile.first_name} about this listing", conversations_path(listing_id: @listing.id, buyer_id: current_user.id), method: 'post') if (signed_in? && @listing.user != current_user) %>
-<% elsif (signed_in? && @listing.user == current_user)%>
-  <%= link_to 'Edit', edit_listing_path(@listing) if @listing.user == current_user %> |
-<% end %>
+    </div>
+    <div class="button-group">
+      <% if (signed_in? && @listing.user != current_user) %>
+        <%= link_to("Buy", conversations_path(listing_id: @listing.id, buyer_id: current_user.id), method: 'post', class:"button") %>
+        <%= link_to("Message", conversations_path(listing_id: @listing.id, buyer_id: current_user.id), method: 'post', class:"button") %>
+      <% elsif (signed_in? && @listing.user == current_user)%>
+        <%= link_to 'Edit', edit_listing_path(@listing), class:"button" %>
+      <% elsif !signed_in?%>
+        <%= link_to 'Sign in', new_user_session_path, class:"button" %>
+      <% end %>
 
-<%= link_to 'Back', listings_path %>
+      <%= link_to 'Back', listings_path, class:"button" %>
+  </div>
+</div>
