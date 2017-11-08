@@ -1,28 +1,56 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
-  # GET /listings
-  # GET /listings.json
   def index
-    @listings = Listing.all
+
+    # If loacation radius param passed from form select, get lisitings within radius
+    if params[:radius_search].present?
+      lat = current_user.profile.latitude
+      long = current_user.profile.longitude
+      range = params[:radius_search]
+      profiles = Profile.near([lat, long], range, :units => :km)
+      # OK, well, it works...
+      radius_listings = []
+      profiles.each do |profile|
+        if profile.user.listings.length > 0
+          profile.user.listings.each do |listing|
+            radius_listings << listing
+          end
+        end
+      end
+    # Or else return all listings
+    else 
+      radius_listings = Listing.all
+    end
+
+    if params[:species_search].present?
+      species_listings = Listing.where(specie: params[:species_search])
+    else
+      species_listings = Listing.all      
+    end
+    
+    if params[:growth_form_search].present?
+      species = Specie.where(growth_form: params[:growth_form_search])
+      growth_form_listings = Listing.where(specie: species)      
+    else
+      growth_form_listings = Listing.all      
+    end
+
+    # Listings to show is the intersection of all searches
+    @listings = radius_listings & species_listings & growth_form_listings
+
   end
 
-  # GET /listings/1
-  # GET /listings/1.json
   def show
   end
 
-  # GET /listings/new
   def new
     @listing = Listing.new
   end
 
-  # GET /listings/1/edit
   def edit
   end
 
-  # POST /listings
-  # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
     @listing.user = current_user
@@ -38,8 +66,6 @@ class ListingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /listings/1
-  # PATCH/PUT /listings/1.json
   def update
     respond_to do |format|
       if @listing.update(listing_params)
@@ -52,8 +78,6 @@ class ListingsController < ApplicationController
     end
   end
 
-  # DELETE /listings/1
-  # DELETE /listings/1.json
   def destroy
     @listing.destroy
     respond_to do |format|

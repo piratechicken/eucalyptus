@@ -1,31 +1,48 @@
-<p id="notice"><%= notice %></p>
+<div class=container>
+  <h1>Listings</h1>
 
-<h1>Listings</h1>
+  <%= form_with url: listings_path, local: true, method: :get do |form| %>
+      <%= form.select :radius_search, [5, 10, 20, 40], { :include_blank => 'All locations', :selected => params[:radius_search] } %>
+      <%= form.collection_select :species_search, Specie.order(:name), :id, :name, { :include_blank => 'All species', :selected => params[:species_search] } %>
+      <%= form.collection_select :growth_form_search, GrowthForm.order(:name), :id, :name, { :include_blank => 'All growths forms', :selected => params[:growth_form_search] } %>
+      <%= form.submit 'Filter listings' %>
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Species</th>
-      <th>Location</th>
-      <th>Price</th>
-      <th>Image data</th>
-    </tr>
-  </thead>
+<div class = "listings-container">
+  <% @listings.each do |listing| %>
+    <div class="card">
+      <div class="card-left">
+        <% if listing.image_data.present? %>
+          <%= image_tag listing.image_url(:large) %>
+        <% elsif listing.specie.growth_form.name == ('small tree' || 'medium tree' || 'large tree') %>
+          <%= image_tag 'tree-100.png' %>
+        <% elsif listing.specie.growth_form.name == 'fern' %>
+          <%= image_tag 'fern-100.png' %>
+        <% elsif listing.specie.growth_form.name == 'shrub' %>
+          <%= image_tag 'bush-100.png' %>
+        <% elsif listing.specie.growth_form.name == 'grass' %>
+          <%= image_tag 'grass-100.png' %>
+        <% else %>
+              <%= image_tag 'leaf-100.png' %>
+        <% end %>      
+      </div>
+            
+      <div class="card-right">
+        <div class="card-section">
+          <div class="card-divider">
+            <i><%= link_to listing.specie.name, listing.specie %></i>
+          </div>
+          <h4><%= link_to listing.title, listing %></h4>
+          <p><%= format_money listing.price_cents %></p>
+          <p><%= "#{listing.user.profile.suburb}, #{listing.user.profile.state}" %></p>
+          <p>Last updated <%= format_time listing.updated_at %></p>
 
-  <tbody>
-    <% @listings.each do |listing| %>
-      <tr>
-        <td><%= link_to listing.title, listing %></td>
-        <td><%= listing.specie.name %></td>
-        <td><%= "#{listing.user.profile.suburb}, #{listing.user.profile.state}" %></td>
-        <td><%= format_money listing.price_cents %></td>
-        <td><%= image_tag listing.image_url(:thumb) if listing.image_data.present? %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <br>
 
-<br>
-
-<%= link_to 'New Listing', new_listing_path if signed_in? %>
+  <%= (link_to 'New Listing', new_listing_path, class:"success button") if signed_in? %>
+  </div>
+</div>

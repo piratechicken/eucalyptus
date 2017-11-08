@@ -18,8 +18,8 @@
 
   <div class="field">
     <%= form.label :specie_id, 'Species' %>
-    <%= form.collection_select :specie_id, Specie.order(:name), :id, :name, include_blank: true %>
     <%= link_to 'Add new species', new_specie_path, target: :_blank  %>
+    <%= form.collection_select :specie_id, Specie.order(:name), :id, :name, include_blank: true %>
   </div>
 
   <div class="field">
@@ -33,7 +33,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :image %><br>
+    <%= form.label :image %>
     <%= form.file_field :image %>
   </div>
   <% if listing.image_data? %>

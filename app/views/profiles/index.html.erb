@@ -3,18 +3,23 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
       <th>Image data</th>
+      <th>Name</th>
       <th>Suburb</th>
-
     </tr>
   </thead>
 
   <tbody>
     <% @profiles.each do |profile| %>
       <tr>
+        <td>
+          <% if profile.image_data.present? %>
+            <%= image_tag profile.image_url(:thumb) %>
+          <% else %>
+            <%= image_tag 'avatar-thumb.png' %>
+          <% end %>
+        </td>
         <td><%= link_to profile.full_name, profile %></td>
-        <td><%= image_tag profile.image_url(:thumb) if profile.image_data.present? %></td>
         <td><%= "#{profile.suburb}, #{profile.state}" %></td>
       </tr>
     <% end %>

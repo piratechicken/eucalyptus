@@ -1,15 +1,22 @@
-<h1>Eucalyptus</h1>
-<h2>Indigenous plant marketplace</h2>
+<div class = "landing_bar">
+  <h1>Eucalyptus</h1>
+  <h2>Indigenous plant marketplace</h2>
+</div>
 
-<p><%= link_to 'View plants for sale', listings_path %></p>
+<div class="landing-container">
+  <div>
+    <p><%= link_to 'Buy', listings_path, class: "success button" %></p>
+    <p><%= link_to 'Sell', new_listing_path, class: "success button" %></p>
 
-<% if user_signed_in? %>
-  <% if current_user.profile.present? %>
-    <p><%= link_to 'My profile', current_user.profile %></p>
-  <% else %>
-    <p><%= link_to 'Create profile', new_profile_path %></p>
-  <% end %>
-  <p><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></p>
-<% else %>
-  <p><%= link_to 'Log in', new_user_session_path %></p>
-<% end %>
+    <% if user_signed_in? %>
+      <% if current_user.profile.present? %>
+        <p><%= link_to 'My profile', current_user.profile, class: "success button"  %></p>
+      <% else %>
+        <p><%= link_to 'Create profile', new_profile_path, class: "success button"  %></p>
+      <% end %>
+      <p><%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "success button"  %></p>
+    <% else %>
+      <p><%= link_to 'Log in', new_user_session_path, class: "success button"  %></p>
+    <% end %>
+  </div>
+</div>

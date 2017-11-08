@@ -13,16 +13,17 @@
   </head>
 
   <body>
-  <% unless controller_name == "landing" %>
-    <%= render '/layouts/nav' %>
-  <% end %>
+      <%= render '/layouts/nav' unless current_page?(root_path)%>
 
-    <% if notice.present? || alert.present? %>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%#= alert %></p>
-    <% end %>
+    <div class = "content">
+      <% if notice.present? || alert.present? %>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%#= alert %></p>
+      <% end %>
 
-    <%= yield %>
-    <%= javascript_include_tag "application" %>
+      <%= yield %>
+      <%= javascript_include_tag "application" %>
+    </div>
+
   </body>
 </html>

@@ -26,9 +26,11 @@ plants = [nutans, regnans, spear, cushion]
 users = [simon, gretch, hannah, julia, ruegan, samantha, bridget]
 titles = ['Buy my','For sale: ','For sale, a bunch of', 'Check it out. Some', 'Cheap ']
 
+suburbs = ['Moorabbin', 'Cheltenham', 'Hampton', 'Fitzroy', 'Footscray', 'Brunswick', 'Portsea', 'Rosebud']
+
 users.each do |user|
-  firstname = user.email.split('@').first
-  Profile.create!(first_name: firstname, last_name: 'Doe', user: user)
+  firstname = user.email.split('@').first.capitalize
+  Profile.create!(first_name: firstname, last_name: 'Doe', user: user, suburb: suburbs.sample, state: 'Victoria', country: 'Australia')
 end
 
 16.times do
