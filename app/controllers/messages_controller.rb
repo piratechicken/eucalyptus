@@ -1,11 +1,17 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_conversation
 
   # GET /messages
   # GET /messages.json
   def index
     @messages = @conversation.messages.order(:created_at).last(10)
-    @message = @conversation.messages.new
+    # Manual auth... If this is not your convo, go away!
+    if (current_user == @conversation.buyer) || (current_user == @conversation.seller)
+      @message = @conversation.messages.new
+    else
+      redirect_to root_path
+    end
   end
 
   def new

@@ -15,6 +15,9 @@
       <% end %>
 
     <h3>
+      <% if @listing.active == false %>
+        <strong>SOLD: </strong>
+      <% end %>
       <%= @listing.title %>
     </h3>
 
@@ -39,12 +42,23 @@
       <i>Last updated <%= format_time @listing.updated_at %></i>
     </p>
 
+    
+    <% if @listing.user == current_user && @listing.active == false %>
+      <p><strong>Sold to: </strong><%= link_to @listing.charge.user.profile.full_name, @listing.charge.user.profile %>
+      <%= ". To message #{@listing.charge.user.profile.first_name} about this listing " %>
+      <%= link_to("click here.", conversations_path(listing_id: @listing.id, buyer_id: @listing.charge.user.id), method: 'post') %>
+      </p>
+    <% end %>
+    
 
     </div>
     <div class="button-group">
-      <% if (signed_in? && @listing.user != current_user) %>
-        <%= link_to("Buy", new_charge_path(listing_id: @listing.id), class:"button") %>
+      <% if (signed_in? && @listing.user != current_user && current_user.profile.present?) %>
+        <%= link_to("Buy", new_charge_path(listing_id: @listing.id), class:"button") if @listing.active == true %>
         <%= link_to("Message", conversations_path(listing_id: @listing.id, buyer_id: current_user.id), method: 'post', class:"button") %>
+      <% elsif (signed_in? && @listing.user != current_user && current_user.profile.nil?) %>
+        <p>Set up your profile to message users and buy items.</p>
+        <%= link_to "Create profile", new_profile_path, class:"button" %>
       <% elsif (signed_in? && @listing.user == current_user)%>
         <%= link_to 'Edit', edit_listing_path(@listing), class:"button" %>
       <% elsif !signed_in?%>

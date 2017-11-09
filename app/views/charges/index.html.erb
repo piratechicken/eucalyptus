@@ -1,0 +1,21 @@
+<div class = "container">
+
+  <h3>My purchases</h3>
+
+  <% @paid_by_me.each do |charge| %>
+    <ul>
+    <li><%= link_to charge.listing.title, charge.listing %>: <%= format_money charge.listing.price_cents %></li>
+    </ul>
+  <% end %>
+
+  <div class = horizontal-line></div>
+
+  <h3>My sold items</h3>
+
+  <% @paid_to_me.each do |charge| %>
+    <ul>
+    <li><%= link_to charge.listing.title, charge.listing %>: <%= format_money charge.listing.price_cents %></li>
+    </ul>
+  <% end %>
+
+</div>

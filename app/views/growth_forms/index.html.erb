@@ -1,31 +1,33 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Growth Forms</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Image data</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class = "container">
+  <h3>Growth Forms</h3>
+  <div class = "listings-container">
     <% @growth_forms.each do |growth_form| %>
-      <tr>
-        <td><%= growth_form.name %></td>
-        <td><%= growth_form.description %></td>
-        <td><%= growth_form.image_data %></td>
-        <td><%= link_to 'Show', growth_form %></td>
-        <td><%= link_to 'Edit', edit_growth_form_path(growth_form) %></td>
-        <td><%= link_to 'Destroy', growth_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="card">
+        <div class="card-left">
+          <% if growth_form.image_data.present? %>
+            <%= image_tag growth_form.image_url(:large) %>
+          <% elsif growth_form.name == ('small tree' || 'medium tree' || 'large tree') %>
+            <%= image_tag 'tree-100.png' %>
+          <% elsif growth_form.name == 'fern' %>
+            <%= image_tag 'fern-100.png' %>
+          <% elsif growth_form.name == 'shrub' %>
+            <%= image_tag 'bush-100.png' %>
+          <% elsif growth_form.name == 'grass' %>
+            <%= image_tag 'grass-100.png' %>
+          <% else %>
+            <%= image_tag 'leaf-100.png' %>
+          <% end %>      
+        </div>
+              
+        <div class="card-right">
+          <div class="card-section">
+            <div class="card-divider">
+              <i><%= link_to growth_form.name.capitalize, growth_form %></i>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Growth Form', new_growth_form_path %>
+  </div>
+</div>

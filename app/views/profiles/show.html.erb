@@ -1,31 +1,73 @@
-<p>
-  <%= "#{@profile.first_name} #{@profile.last_name}" %>
-</p>
+<div class = "container">
+  <div class = "listing-details">
+    <% if @profile.image_data.present? %>
+      <%= image_tag @profile.image_url(:large) %>
+    <% else %>
+      <%= image_tag 'avatar-large.png' %>
+    <% end %>
 
-<p>
-  <strong>About <%= @profile.first_name %>:</strong>
-  <%= @profile.about %>
-</p>
+    <p>
+      <%= @profile.full_name %><br>
+      <%= "#{@profile.suburb}, #{@profile.state}"%>
+    </p>
 
-<p>
-  <strong>Image data:</strong>
-  <% if @profile.image_data.present? %>
-    <%= image_tag @profile.image_url(:large) %>
-  <% else %>
-    <%= image_tag 'avatar-large.png' %>
+    <p>
+      About <%= @profile.first_name %>: 
+      <%= @profile.about %>
+    </p>
+
+  </div>
+
+  <div class = button-group>
+    <%= link_to 'Edit my profile', edit_profile_path(@profile), class:"button" if @profile.user == current_user%>
+    <%= link_to 'Back', profiles_path, class:"button" %>
+  </div>
+
+  <br>
+  <div class = "horizontal-line"></div>
+
+  <h3><%= @profile.first_name %>'s listings:</h3>
+
+  <%= form_with(url: @profile, local: true, method: :get) do |f| %>
+      <%= f.select :listing_status, ["Current listings", "Sold listings"], { :include_blank => 'All listings', :selected => params[:listing_status] } %>
+      <%= f.submit "Filter #{@profile.first_name}'s listings" %>
   <% end %>
-</p>
+  <br>
 
-<p>
-  <strong>Location:</strong>
-  <%= "#{@profile.suburb}, #{@profile.state}"%>
-</p>
+  <div class = "listings-container">
+    <% @listings.each do |listing| %>
+      <div class="card">
+        <div class="card-left">
+          <% if listing.image_data.present? %>
+            <%= image_tag listing.image_url(:large) %>
+          <% elsif listing.specie.growth_form.name == ('small tree' || 'medium tree' || 'large tree') %>
+            <%= image_tag 'tree-100.png' %>
+          <% elsif listing.specie.growth_form.name == 'fern' %>
+            <%= image_tag 'fern-100.png' %>
+          <% elsif listing.specie.growth_form.name == 'shrub' %>
+            <%= image_tag 'bush-100.png' %>
+          <% elsif listing.specie.growth_form.name == 'grass' %>
+            <%= image_tag 'grass-100.png' %>
+          <% else %>
+            <%= image_tag 'leaf-100.png' %>
+          <% end %>      
+        </div>
+            
+        <div class="card-right">
+          <div class="card-section">
+            <div class="card-divider">
+              <i><%= link_to listing.specie.name, listing.specie %></i>
+            </div>
+            <h4><%= link_to listing.title, listing %></h4>
+            <p>Status: <strong><%= listing.active ? 'Available' : 'SOLD!' %></strong></p>
+            <p><%= format_money listing.price_cents %></p>
+            <p><%= "#{listing.user.profile.suburb}, #{listing.user.profile.state}" %></p>
+            <p>Last updated <%= format_time listing.updated_at %></p>
 
-<p>
-  <strong>Country:</strong>
-  <%= @profile.country %>
-</p>
-
-
-<%= link_to 'Edit my profile |', edit_profile_path(@profile) if @profile.user == current_user%>
-<%= link_to 'Back', profiles_path %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+  </div>
+</div>
+  

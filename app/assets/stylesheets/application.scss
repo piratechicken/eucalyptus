@@ -13,6 +13,14 @@ $brown: #5a482d;
   transition: 0.3s;
 }
 
+a:hover {
+  color: #56a1a2;
+}
+
+.notice {
+  text-align: center;
+}
+
 body {
   background: rgb(241, 241, 241);
   margin: 0;
@@ -36,6 +44,27 @@ input[type="submit"]:hover {
 input[type="file"] {
   @extend input[type="submit"];
   width: auto;
+}
+
+.filter-form {
+  max-width: 600px;
+  margin: auto;
+  
+  .form-group {
+    display: flex;
+    margin: auto;
+    width: 100%;
+    
+    .form-group-item {
+      width: 50%;
+    }
+  }
+}
+
+.horizontal-line {
+  border-top: 2px solid $brown;
+  width: 70vw;
+  margin: 20px auto;
 }
 
 .content {

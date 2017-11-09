@@ -16,7 +16,7 @@
           <li><%= link_to 'View listings', listings_path %></li>
         <% end %>
         <% unless current_page?(controller: '/listings', action: 'new') %>
-          <li><%= link_to 'New listing', new_listing_path %></li>
+          <li><%= link_to 'New listing', new_listing_path if signed_in? %></li>
         <% end %>
 
           <li class="has-dropdown">
@@ -30,6 +30,7 @@
                   <li><%= link_to 'Create profile', new_profile_path, class: 'btn btn-secondary'  %></li>
                 <% end %>
                 <li><%= link_to 'My messages', conversations_path %></li>
+                <li><%= link_to 'My transactions', charges_path %></li>
                 <li><%= link_to 'Email support team', support_path %></li>
                 <li><%= link_to 'Sign out', destroy_user_session_path, class: 'btn btn-secondary', method: :delete %></li>
               <% else %>

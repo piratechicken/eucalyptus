@@ -1,0 +1,9 @@
+<h1>Eucalyptus notification</h1>
+________________________
+<p>
+Your listing on Eucalyptus has been sold! You should contact the buyer by email or the site messaging service to arrange pick up.
+</p>
+<p> 
+Listing: <%= link_to @listing.title, @listing %><br>
+Sold to: <%= "#{@buyer.profile.full_name}: #{@buyer.email}" %><br>
+</p>

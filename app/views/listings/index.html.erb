@@ -1,12 +1,29 @@
 <div class=container>
   <h1>Listings</h1>
-
-  <%= form_with url: listings_path, local: true, method: :get do |form| %>
-      <%= form.select :radius_search, [5, 10, 20, 40], { :include_blank => 'All locations', :selected => params[:radius_search] } %>
-      <%= form.collection_select :species_search, Specie.order(:name), :id, :name, { :include_blank => 'All species', :selected => params[:species_search] } %>
-      <%= form.collection_select :growth_form_search, GrowthForm.order(:name), :id, :name, { :include_blank => 'All growths forms', :selected => params[:growth_form_search] } %>
+<div class = "horizontal-line"><div>
+ <br> 
+  <%= form_with url: listings_path, local: true, method: :get, class: 'filter-form' do |form| %>
+      <% if signed_in? && current_user.profile.present? %>
+        <%= form.label 'Search by distance from your location (kms)' %>
+        <%= form.select :radius_search, [5, 10, 20, 40], { :include_blank => 'All locations', :selected => params[:radius_search] } %>
+      <% else %>
+        <p>Set up a profile to search by location</p>
+      <% end %>
+      <div class="form-group">
+        <div class = "form-group-item">
+          <%= form.label 'Search by species...' %>
+          <%= form.collection_select :species_search, Specie.order(:name), :id, :name, { :include_blank => 'All species', :selected => params[:species_search] } %>
+        </div>
+        <div class = "form-group-item">
+          <%= form.label '...or by growth form' %>
+          <%= form.collection_select :growth_form_search, GrowthForm.order(:name), :id, :name, { :include_blank => 'All growths forms', :selected => params[:growth_form_search] } %>
+        </div>
+      </div>
       <%= form.submit 'Filter listings' %>
   <% end %>
+
+<div class = "horizontal-line"><div>
+<br>
 
 <div class = "listings-container">
   <% @listings.each do |listing| %>

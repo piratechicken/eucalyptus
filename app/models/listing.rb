@@ -3,6 +3,19 @@ class Listing < ApplicationRecord
 
   belongs_to :user
   belongs_to :specie
+  has_one :charge
 
-  default_scope { where(active: true) }
+  validates :title, presence: true
+  validates :specie, presence: true
+  validates :price_cents, presence: true
+  validates :description, presence: true
+
+  # Get unsold and sold listings
+  scope :active, -> {
+    where(active: true)
+  }
+  scope :inactive, -> {
+    where(active: false)
+  }
+
 end

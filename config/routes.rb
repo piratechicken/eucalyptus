@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :species
-  resources :growth_forms
+  resources :growth_forms, only: [:index, :show]
   resources :profiles
   resources :listings
   

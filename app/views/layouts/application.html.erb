@@ -14,7 +14,7 @@
   </head>
 
   <body>
-      <%= render '/layouts/nav' unless current_page?(root_path)%>
+      <%= render '/layouts/nav' unless current_page?(root_path) %>
 
     <div class = "content">
       <% if notice.present? || alert.present? %>

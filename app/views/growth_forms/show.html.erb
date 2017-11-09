@@ -1,19 +1,25 @@
-<p id="notice"><%= notice %></p>
+<div class = "container">
+  <div class = "listing-details">
+      <% if @growth_form.image_data.present? %>
+        <%= image_tag @growth_form.image_url(:large) %>
+      <% elsif @growth_form.name == ('small tree' || 'medium tree' || 'large tree') %>
+        <%= image_tag 'tree-500.png' %>
+      <% elsif @growth_form.name == 'fern' %>
+        <%= image_tag 'fern-500.png' %>
+      <% elsif @growth_form.name == 'shrub' %>
+        <%= image_tag 'bush-500.png' %>
+      <% elsif @growth_form.name == 'grass' %>
+        <%= image_tag 'grass-500.png' %>
+      <% else %>
+        <%= image_tag 'leaf-500.png' %>
+      <% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @growth_form.name %>
-</p>
+    <h3>
+      <%= @growth_form.name.capitalize %>
+    </h3>
 
-<p>
-  <strong>Description:</strong>
-  <%= @growth_form.description %>
-</p>
-
-<p>
-  <strong>Image data:</strong>
-  <%= @growth_form.image_data %>
-</p>
-
-<%= link_to 'Edit', edit_growth_form_path(@growth_form) %> |
+    <p>
+      <%= @growth_form.description %>
+    </p>
+    
 <%= link_to 'Back', growth_forms_path %>

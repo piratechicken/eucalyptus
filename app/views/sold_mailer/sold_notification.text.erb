@@ -1,0 +1,7 @@
+- Eucalyptus notification -
+________________________
+
+Your listing on Eucalyptus has been sold! You should contact the buyer by email or the site messaging service to arrange pick up.
+
+Listing: <%= link_to @listing.title, @listing %>
+Sold to: <%= "#{@buyer.profile.full_name}: #{@buyer.email}" %>

@@ -1,4 +1,5 @@
 class ListingsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -12,28 +13,28 @@ class ListingsController < ApplicationController
       # OK, well, it works...
       radius_listings = []
       profiles.each do |profile|
-        if profile.user.listings.length > 0
-          profile.user.listings.each do |listing|
+        if profile.user.listings.active.length > 0
+          profile.user.listings.active.each do |listing|
             radius_listings << listing
           end
         end
       end
     # Or else return all listings
     else 
-      radius_listings = Listing.where(active: true)
+      radius_listings = Listing.active
     end
 
     if params[:species_search].present?
-      species_listings = Listing.where(specie: params[:species_search])
+      species_listings = Listing.active.where(specie: params[:species_search])
     else
-      species_listings = Listing.all      
+      species_listings = Listing.active      
     end
     
     if params[:growth_form_search].present?
       species = Specie.where(growth_form: params[:growth_form_search])
-      growth_form_listings = Listing.where(specie: species)      
+      growth_form_listings = Listing.active.where(specie: species)      
     else
-      growth_form_listings = Listing.all  
+      growth_form_listings = Listing.active  
     end
 
     # Listings to show is the intersection of all searches
@@ -49,6 +50,11 @@ class ListingsController < ApplicationController
   end
 
   def edit
+    authorize @listing
+    if @listing.active == false
+      flash[:notice] = 'You cannot edit a sold listing'
+      redirect_to @listing
+    end
   end
 
   def create
@@ -68,6 +74,7 @@ class ListingsController < ApplicationController
   end
 
   def update
+    authorize @listing
     respond_to do |format|
       if @listing.update(listing_params)
         format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }

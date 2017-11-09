@@ -1,25 +1,13 @@
-<p id="notice"><%= notice %></p>
+<div class = container>
 
-<h1>All:</h1>
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>Last message</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if @conversations.present? %>
-      <% @conversations.each do |conversation| %>
-        <tr> 
-          <td><%= link_to "Re: #{conversation.listing.title}", conversation_messages_path(conversation) %></td>
-          <td><%= link_to other_user(conversation).full_name, other_user(conversation) %></td>
-          <td><%= format_last_message_time(conversation.messages.last.created_at) %></td>
-        </tr>
+<h3>Mailbox</h3>
+    <ul>
+      <% if @conversations.present? %>
+        <% @conversations.each do |conversation| %>
+          <li><%= link_to "Re: #{conversation.listing.title}", conversation_messages_path(conversation) %> | 
+          <%= link_to other_user(conversation).full_name, other_user(conversation) %> | Last message: 
+          <%= format_last_message_time(conversation.messages.last.created_at) %></li>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
-
+    </ul>
+</div>

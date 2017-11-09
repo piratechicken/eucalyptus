@@ -11,7 +11,17 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    redirect_to edit_profile_url if @profile.nil?
+
+    user = @profile.user
+
+    if params[:listing_status] == "Current listings"
+      @listings = Listing.active.where(user: user)
+    elsif params[:listing_status] == "Sold listings"
+      @listings = Listing.inactive.where(user: user, active: false)
+    else
+      @listings = Listing.where(user: user)
+    end
+
   end
 
   # GET /profiles/new
@@ -79,7 +89,7 @@ class ProfilesController < ApplicationController
     def set_profile
       if params[:id]
         # A particular person's profile
-        @profile = Profile.find_by!(user_id: params[:id])
+        @profile = Profile.find_by!(id: params[:id])
       else
         # Signed in user profile
         @profile = Profile.find_by(user: current_user)
