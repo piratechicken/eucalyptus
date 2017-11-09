@@ -29,6 +29,8 @@ gem 'money-rails', '~>1'
 gem 'money'
 # Stripe for payments
 gem 'stripe'
+# Mailgun for emails
+gem 'mailgun-ruby', '~>1.1.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'

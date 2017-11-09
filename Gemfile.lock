@@ -489,6 +489,8 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
     dotenv-rails (2.2.1)
       dotenv (= 2.2.1)
@@ -506,6 +508,8 @@ GEM
     geocoder (1.4.4)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     i18n (0.9.0)
       concurrent-ruby (~> 1.0)
     image_processing (0.4.5)
@@ -529,6 +533,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    mailgun-ruby (1.1.8)
+      rest-client (~> 2.0)
     method_source (0.9.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -547,6 +553,7 @@ GEM
       railties (>= 3.0)
     multi_json (1.12.2)
     multipart-post (2.0.0)
+    netrc (0.11.0)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -589,6 +596,10 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     ruby_dep (1.5.0)
     sass (3.5.3)
       sass-listen (~> 4.0.0)
@@ -627,6 +638,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.1)
@@ -655,6 +669,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   listen (>= 3.0.5, < 3.2)
+  mailgun-ruby (~> 1.1.6)
   mini_magick
   money
   money-rails (~> 1)
