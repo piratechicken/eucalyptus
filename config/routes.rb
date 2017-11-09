@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     resources :messages
   end
 
+  get '/support' => 'support#new'
+  post '/support' => 'support#create'
+
   resources :charges
   
 end

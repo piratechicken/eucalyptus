@@ -30,6 +30,7 @@
                   <li><%= link_to 'Create profile', new_profile_path, class: 'btn btn-secondary'  %></li>
                 <% end %>
                 <li><%= link_to 'My messages', conversations_path %></li>
+                <li><%= link_to 'Email support team', support_path %></li>
                 <li><%= link_to 'Sign out', destroy_user_session_path, class: 'btn btn-secondary', method: :delete %></li>
               <% else %>
                 <li class="active"><%= link_to 'Log in', new_user_session_path, class: 'btn btn-secondary' %></li>

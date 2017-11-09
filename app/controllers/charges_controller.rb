@@ -11,15 +11,14 @@ class ChargesController < ApplicationController
      # New charge for the form
      @charge = Charge.new
      # Set listing
-     listing = Listing.find(params[:listing_id])
-     @charge.listing = listing
+     @charge.listing = @listing
   end
   
   def create
     # Amount in cents
-    @amount = listing.price_cents
+    @amount = @listing.price_cents
     @description = "Eucalyptus: #{listing.title}"
-  
+    @listing.active = false
     customer = Stripe::Customer.create(
       :email => current_user.email,
       :source  => params[:stripeToken]
@@ -39,7 +38,7 @@ class ChargesController < ApplicationController
 
   private
     def set_listing
-      listing = Listing.find(params[:listing_id])  
+      @listing = Listing.find(params[:listing_id])  
     end
 
 end
