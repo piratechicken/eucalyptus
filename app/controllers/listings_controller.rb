@@ -24,15 +24,19 @@ class ListingsController < ApplicationController
       radius_listings = Listing.active
     end
 
+    # If species filter passed from form select:
     if params[:species_search].present?
       species_listings = Listing.active.where(specie: params[:species_search])
+    # Or else return all listings
     else
       species_listings = Listing.active      
     end
     
+    # If growth form filter passed from form select:
     if params[:growth_form_search].present?
       species = Specie.where(growth_form: params[:growth_form_search])
-      growth_form_listings = Listing.active.where(specie: species)      
+      growth_form_listings = Listing.active.where(specie: species)     
+    # Or else return all listings 
     else
       growth_form_listings = Listing.active  
     end
