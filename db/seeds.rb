@@ -36,5 +36,5 @@ end
 16.times do
   species = plants.sample
   title = "#{titles.sample} #{species.common_name}"
-  Listing.create!(title: title, user: users.sample, specie: species, price_cents: rand(500..20000))
+  Listing.create!(title: title, user: users.sample, specie: species, price_cents: rand(500..20000), description: 'Here is my listing description: lalala blah yada.' )
 end
