@@ -3,4 +3,6 @@ class Listing < ApplicationRecord
 
   belongs_to :user
   belongs_to :specie
+
+  default_scope { where(active: true) }
 end

@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102050853) do
+ActiveRecord::Schema.define(version: 20171108235814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "charges", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "listing_id"
+    t.string "charge_identifier"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_charges_on_listing_id"
+    t.index ["user_id"], name: "index_charges_on_user_id"
+  end
 
   create_table "conversations", force: :cascade do |t|
     t.bigint "buyer_id"
@@ -41,6 +51,7 @@ ActiveRecord::Schema.define(version: 20171102050853) do
     t.text "image_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active"
     t.index ["specie_id"], name: "index_listings_on_specie_id"
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
@@ -100,6 +111,8 @@ ActiveRecord::Schema.define(version: 20171102050853) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "charges", "listings"
+  add_foreign_key "charges", "users"
   add_foreign_key "conversations", "listings"
   add_foreign_key "conversations", "users", column: "buyer_id"
   add_foreign_key "listings", "species"

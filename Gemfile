@@ -27,6 +27,8 @@ gem 'shrine'
 # Money to format... well, money.
 gem 'money-rails', '~>1'
 gem 'money'
+# Stripe for payments
+gem 'stripe'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'

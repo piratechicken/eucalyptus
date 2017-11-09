@@ -2,7 +2,7 @@
 
 <div class = "messages">
 
-<h4>Messages with <%= link_to other_user(@conversation).full_name, other_user(@conversation) %> about the listing "<%= link_to @conversation.listing.title, @conversation.listing %>"</h4>
+<p>Messaging <%= link_to other_user(@conversation).full_name, other_user(@conversation) %> about "<%= link_to @conversation.listing.title, @conversation.listing %>"</p>
 
   <% @messages.each do |message| %>
     <% if message.user == current_user %>

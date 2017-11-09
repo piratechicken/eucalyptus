@@ -20,7 +20,7 @@ class ListingsController < ApplicationController
       end
     # Or else return all listings
     else 
-      radius_listings = Listing.all
+      radius_listings = Listing.where(active: true)
     end
 
     if params[:species_search].present?
@@ -33,7 +33,7 @@ class ListingsController < ApplicationController
       species = Specie.where(growth_form: params[:growth_form_search])
       growth_form_listings = Listing.where(specie: species)      
     else
-      growth_form_listings = Listing.all      
+      growth_form_listings = Listing.all  
     end
 
     # Listings to show is the intersection of all searches
@@ -54,6 +54,7 @@ class ListingsController < ApplicationController
   def create
     @listing = Listing.new(listing_params)
     @listing.user = current_user
+    @listing.active = true
     
     respond_to do |format|
       if @listing.save

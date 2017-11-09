@@ -43,7 +43,7 @@
     </div>
     <div class="button-group">
       <% if (signed_in? && @listing.user != current_user) %>
-        <%= link_to("Buy", conversations_path(listing_id: @listing.id, buyer_id: current_user.id), method: 'post', class:"button") %>
+        <%= link_to("Buy", new_charge_path(listing_id: @listing.id), class:"button") %>
         <%= link_to("Message", conversations_path(listing_id: @listing.id, buyer_id: current_user.id), method: 'post', class:"button") %>
       <% elsif (signed_in? && @listing.user == current_user)%>
         <%= link_to 'Edit', edit_listing_path(@listing), class:"button" %>
