@@ -4,4 +4,7 @@ class Specie < ApplicationRecord
   belongs_to :growth_form
   has_many :listings
   
+  validates :name, presence: true
+  validates :common_name, presence: true
+
 end

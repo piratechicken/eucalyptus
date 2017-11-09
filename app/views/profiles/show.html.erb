@@ -40,7 +40,7 @@
         <div class="card-left">
           <% if listing.image_data.present? %>
             <%= image_tag listing.image_url(:large) %>
-          <% elsif listing.specie.growth_form.name == ('small tree' || 'medium tree' || 'large tree') %>
+          <% elsif listing.specie.growth_form.name == "large tree" %>
             <%= image_tag 'tree-100.png' %>
           <% elsif listing.specie.growth_form.name == 'fern' %>
             <%= image_tag 'fern-100.png' %>

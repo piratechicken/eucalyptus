@@ -46,6 +46,20 @@ input[type="file"] {
   width: auto;
 }
 
+form {
+  min-width: 300px;
+}
+
+button {
+  background: $dark-green;
+  border-radius: 5px;
+  color: $white-text;
+  min-width: 120px;
+  margin: 10px auto;
+  padding: 10px;
+  opacity: 0.8;
+}
+
 .filter-form {
   max-width: 600px;
   margin: auto;
