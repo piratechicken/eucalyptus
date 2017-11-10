@@ -37,7 +37,9 @@ class ChargesController < ApplicationController
       # If success then create in db, update listing and send email to seller
       new_charge = Charge.new(user: current_user, listing: @listing, charge_identifier: charge.id)
       new_charge.save
-      @listing.update(active: false)
+      @listing.active = false
+      # Why do validations stop this from saving??
+      @listing.save(validate: false)
       SoldMailer.sold_notification(@listing, current_user).deliver_now
 
   rescue Stripe::CardError => e
